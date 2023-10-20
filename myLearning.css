@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     background-image: url(/Asset/v602-nunoon-05-rippednotes.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -29,9 +31,9 @@ ul {
 }
 
 li {
-    display:block;
-    justify-content: space-between;
-    align-items: center;
+    display:flexbox;
+    justify-content:center;
+    align-items:center;
     margin: 5px 0;
     padding: 5px;
     background-color: #fff;
@@ -70,4 +72,14 @@ input[type=checkbox]:checked + span{
 h2 {
     color: #2ecc71;
     display:inline;
+}
+
+.topic{
+    display :block
+}
+
+
+.done {
+    align-items: end;
+    justify-content:end;
 }
