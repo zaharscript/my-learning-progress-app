@@ -8,17 +8,21 @@ function addCourse() {
     if (course === "") {
         return;
     }
-
+    
+    
     const courseList = document.getElementById("courseList");
     const li = document.createElement("li");
     li.innerHTML = `
-    <div class="topic">
-        <span>${course}</span>
-        <input type="checkbox">
-        <button class="subtask" onclick="addSubTopic(this)">Add Topic</button>
+    <div id="topic">
+        <div class="a">
+            <span>${course}</span>
+            <input type="checkbox" class=topicCheckBox>
+            <button class="subtask" onclick="addSubTopic(this)">Add Topic</button>
+            <button class="delateItem" onclick="deleteCourse()">delate</button>
+        </div>
     </div>
     `;
-
+    
     courseList.appendChild(li);
 
     // Create a task object and add it to the tasks array
@@ -29,11 +33,24 @@ function addCourse() {
     myCourse.push(courseObject);
 
     courseName.value = "";
+
+
+    
+}
+
+function deleteCourse(){
+    alert('Are you sure?');
+    console.log(myCourse)
+    const removeList = document.querySelector('li')
+    removeList.remove();
+    
 }
 
 function toggleCompleted(button) {
     button.classList.toggle("completed");
 }
+
+
 
 function addSubTopic(button) {
     const parentCourse = button.parentElement;
@@ -50,11 +67,20 @@ function addSubTopic(button) {
     taskObject.subTopic.push(subTopicText);
 
     const ul = document.createElement("ul");
-    ul.innerHTML = `    <li><span>${subTopicText}</span><input type="checkbox" class="done"></li>`;
+    ul.innerHTML = `
+        <li id="myTopic"><span>${subTopicText}</span>
+        <input type="checkbox" class="done">
+        <button onclick="delateTopic()">delate</button>
+        </li>`;
 
     parentCourse.appendChild(ul);
 }
 
+function delateTopic(){
+    alert('Are you sure?');
+    const removeTopic = document.querySelector('#myTopic')
+    removeTopic.remove();
+}
 document.getElementById("courseName").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
         addCourse();

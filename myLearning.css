@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap');
 
+
+
+
 body {
     font-family: 'Quicksand', sans-serif;
     background-image: url(/Asset/v602-nunoon-05-rippednotes.jpg);
@@ -8,7 +11,7 @@ body {
 }
 
 .container {
-    max-width: 400px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px;
     text-align: left;
@@ -47,6 +50,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin:  2px;
 }
 
 button.completed {
@@ -69,6 +73,10 @@ input[type=checkbox]:checked + span{
     text-decoration: line-through;
 }
 
+.add-course {
+    display: flex;
+}
+
 h2 {
     color: #2ecc71;
     display:inline;
@@ -82,4 +90,54 @@ h2 {
 .done {
     align-items: end;
     justify-content:end;
+}
+
+/* testing */
+/* <!-- HTML !-->
+<button class="button-5" role="button">Button 5</button> */
+
+/* CSS */
+.button-5 {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button-5:hover,
+.button-5:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-5:hover {
+  transform: translateY(-1px);
+}
+
+.button-5:active {
+  background-color: #c85000;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
 }
