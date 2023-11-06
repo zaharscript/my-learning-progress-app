@@ -1,0 +1,20 @@
+{
+  "name": "my-learning-syllibus-checklist",
+  "version": "1.0.0",
+  "description": "checklist of my ongoing learning sylibus ",
+  "main": "apps.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaharscript/my-learning-progress-app.git"
+  },
+  "author": "Zahar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zaharscript/my-learning-progress-app/issues"
+  },
+  "homepage": "https://github.com/zaharscript/my-learning-progress-app#readme"
+}
