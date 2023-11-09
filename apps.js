@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 4000;
 
 //database connection
 mongoose.connect(process.env.DB_URI, { 
-    useNewUrlParser: true, 
-    useUnifiedTopology:true
+    // useNewUrlParser: true, 
+    // useUnifiedTopology:true
 });
 const db = mongoose.connection;
 db.on('error',(error)=>console.log(error));
@@ -35,18 +35,18 @@ app.use((req,res,next)=>{
     res.locals.message = req.session.message;
     delete req.session.message;
     next();
-})
+});
 
 //save templete engine
-app.set.apply('view engine','ejs');
+app.set('view engine','ejs');
 
+//routes prefix
+// app.use("",require(".routes/routes"))
+app.use("", require("./routes/routes"));
 
-
-//routes
-
-app.get('/',(req,res)=>{
-    res.send("Hello World");
-});
+// app.get("/",(req,res)=>{
+//     res.send("Hellow World");
+// })
 
 app.listen(PORT, ()=>{
     console.log(`Connection successful establish at http://localhost:${PORT}`);
