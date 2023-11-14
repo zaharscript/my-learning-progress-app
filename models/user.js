@@ -8,15 +8,19 @@ const courseSchema = new mongoose.Schema;({
         type: String, 
         required: true 
     },
-    topicName: {
-        type: String,
+    roleDate: {
+        type: Date,
         required: true
-    },
-    subtopicName:{
-        type:String,
-        required:true
-    } 
+    }
+    // topicName: {
+    //     type: String,
+    //     required: true
+    // },
+    // subtopicName:{
+    //     type:String,
+    //     required:true
+    // } 
     
 });
     
-module.exports = mongoose.model('Schema', courseSchema)
+module.exports = mongoose.model('Courses', courseSchema)
