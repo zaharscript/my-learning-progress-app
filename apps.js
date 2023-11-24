@@ -46,7 +46,6 @@ app.use((req,res,next)=>{
 app.set('view engine','ejs');
 
 //routes prefix
-// app.use("",require(".routes/routes"))
 app.use("", require("./routes/routes"));
 
 // app.get("/",(req,res)=>{
