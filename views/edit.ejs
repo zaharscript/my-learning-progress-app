@@ -1,38 +1,27 @@
 <%-include('layout/header') %>
-      <h2>Learning Never end</h2>
-      <!-- input -->
-      <!-- <form action="/update/" method="post" id="add-form" enctype="multipart/form-data" >
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-chalkboard-user"></i></span>
-          <input type="text"  name="course_Name" class="form-control"  value="" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-chalkboard-user"></i></span>
-          <input type="text" name="instructor_Name" class="form-control"  value="" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-chalkboard-user"></i></span>
-          <input type="date" name="role_Date" class="form-control"  value="" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-        <div class="mb-3 d-grid">
-          <input type="submit" name="submit" value="Update Course" class="btn btn-success btn-lg">
-        </div>
-  
-      </form> -->
-      
+      <h2>Edit The Course</h2>
+   
 <form action="/update/<%= editCourse._id  %>" method="post">
-  <label for="fname">Course Name:</label><br>
-  <input type="text" id="fname" name="course_Name" value="<%= editCourse.courseName %>"><br>
-  <label for="lname">Instructor Name:</label><br>
-  <input type="text" id="lname" name="instructor_Name" value="<%= editCourse.instructorName %>"><br><br>
-  <label for="lname">Date Join:</label><br>
-  <input type="date" id="date" name="role_Date" value="<%= editCourse.roleDate %>"><br><br>
-  <input type="submit" value="Update Course">
+  <div class="mb-3">
+    <label for="course name" class="form-label">Course Name</label>
+    <input type="text" id="Cname" name="course_Name" class="form-control" value="<%= editCourse.courseName %>"><br>
+  </div>
+  <div class="mb-3">
+    <label for="course description" class="form-label">Course Instructor</label>
+    <input type="text" id="Iname" name="instructor_Name" class="form-control" value="<%= editCourse.instructorName %>"><br>
+  </div>
+  <div class="mb-3">
+    <label for="course description" class="form-label">Enrolled Date</label>
+    <input type="date" id="Cdate" name="role_Date" class="form-control" value="<%= editCourse.rollDate %>"><br>
+  </div>
+  <button type="submit" class="btn btn-bd-primary">Update Course</button>
 </form> 
-      
-      <div id="archive"></div>
-      <!-- table of result -->
-      
-      
-      
+
+<!-- <form action="/update/" method="post">
+  <input type="text" name="course_name" value=""><br>
+  <input type="text" name="instructor" value=""><br>
+  <input type="date" name="enrollmentDate" value=""><br>
+  <button type="submit">Update Course</button>
+</form>  -->
+
 <%-include('layout/footer') %>

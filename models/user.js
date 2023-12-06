@@ -12,9 +12,14 @@ const courseSchema = new mongoose.Schema({
     type: Date,
     required: false,
   },
+  completed:{
+    type : Boolean ,
+    required : false,
+    default : false,
+  },
   // topicName: {
   //     type: String,
-  //     required: true
+  //     required: false
   // },
   // subtopicName:{
   //     type:String,
