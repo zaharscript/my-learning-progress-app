@@ -1,108 +1,182 @@
-<%-include('layout/header') %>
-      <h2>Learning Never end</h2>
+<%- include('layout/header');%>
+ 
+<body oncontextmenu='return false' class='snippet-body'>
+  
+<section class="btc-accordion">
+  <!-- container -->
+  <div class="container">
+    <h1 class="text-center text-white"><i>Learning Expedition</i></h1>
+    <p class="text-center text-white">My Journey to conquer the Tech </p>
+    <hr> <br>
+    <section class="container">
       
-  <form action="/" method="post" >
-    <div class="input-group mb-3" >
-      <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-book"></i></span>
-      <input type="text"  name="course" class="form-control" placeholder="Please Insert the course name..." aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-chalkboard-user"></i></span>
-      <input type="text" name="instructor" class="form-control" placeholder="This Course instruct by..." aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-calendar-days fa-bounce"></i></span>
-      <input type="date" name="date" class="form-control" placeholder="Insert the enrolled date..." aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-3">
-      <input type="checkbox" value="" hidden>
-    </div>
-    <div class="mb-3 d-grid">
-      <input type="submit" value="Submit" class="btn btn-primary btn-lg">
-    </div>
-  </form> 
-      
-      <div id="archive"></div>
-      <!-- table of result -->
-      <div class="container">
-        <div class="row my-4">
-          <div class="col-lg-12 ">
-            <% if (message) { %>
-              <div class="alert alert-dismissible fade show alert-<%= message.type%>" role="alert">
-                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
-                <strong><%= message.message%></strong>
+        
+          <form action="/add" method="POST" >
+            <div class="col m-2 p-0">
+              <input class="questionnaire"  type="text" name="course" placeholder="Course name" required> 
+                <span class="focus-border">
+                  <i></i>
+                </span>
+            </div>
+            <div class="col m-2 p-0">
+              <input class="questionnaire" type="text" name="name" placeholder="Instructor name" required>
+                <span class="focus-border">
+                  <i></i>
+                </span>
+            </div>
+            <div class="col m-2 p-0">
+              <input class="questionnaire" type="date" name="date" placeholder="Date enrolled" required>
+                <span class="focus-border">
+                  <i></i>
+                </span>
+            </div>
+            <div class="col m-2 p-0">
+              <div id="fourth" class="buttonBox">
+                <button class="testingButton" type="submit">Register Course</button>
+                <div class="border"></div>
+                <div class="border"></div>
+                <div class="border"></div>
+                <div class="border"></div>
               </div>
-             <% } %>
-            <div class="table-responsive">
-              <%  if  (courseData !="") { %>
-                <table class="table table-striped text-center">
-                  <thead?>
-                      <tr class="table-dark">
-                      <th scope="col"></th>
-                      <th scope="col">#</th>
-                      <th scope="col">Course Name</th>
-                      <th scope="col">Instructor</th>
-                      <th scope="col">Role Date</th>
-                      <th scope="col">Edit</th>
-                      <th scope="col">Delete</th>
-                      <th scope="col"></th>
-                      
-                      
-                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% courseData.forEach((row, index)=> { %>
-                      <tr>
-                        <td>
-                          <form >
-                            
-                            <input type="checkbox" >
-                          </form>
-                        </td>
-                        <td><%=index +1 %></td>
-                        <td >
-                        <div>
-                        <p><%= row.courseName %></p>
-                        </div>
-                        </td>
-                        <td><%= row.instructorName %></td>
-                        <td><%= row.roleDate %></td>
-                         
-
-                          <!-- <div class="form-check float-none d-flex justify-content-center ">
-                            <input class="form-check-input text-center" type="checkbox" value="" id="flexCheckDefault">
-                          </div> -->
-                      
-                        <td>
-                          <a href="/edit/<%= row._id %>" class="text-success">
-                            <i class="fas fa-edit fa-lg mx-1"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="/delete/<%= row._id %>" class="text-denger">
-                            <i class="fas fa-trash fa-lg mx-1"></i>
-                          </a>
-                        </td>
-                        <td>
-
-                        </td>
-                        
-                      </tr>
-                      <% })%>
-                  </tbody>
+            </div>  
+          </form>
+      
+    </section><br>
+  <!-- row -->
+  <div class="row">
+    <div class="col-md-12">    
+      <div class="accordion mb-2" id="accordionExample">
+        <!-- Collapse one -->
+        <div class="card">          
+          <div class="card-header " id="headingOne">
+            <a class="accordion-icon" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              <!-- main course loop -->
+             
+              <h5 class="py-2" >
+                <% todo.forEach((todo, index) => { %> 
+                <%= todo.course %>   <span class="float-right"><i class="fas fa-angle-down"></i></span>
+                <form action="/edit/<%= todo._id %>?_method=GET" method="POST" style="display: inline;">
+                  <button type="submit"><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></button> 
+                </form>
+              </h5>
+              <h6><i>by <%=todo.name %></i> Date enrolled:<%= todo.date %></h6>
+              <h6>Status: <i style="color: #27e1ee;">In Progress</i></h6>
+          </a>
+          <section class="container questionnaire">
+                <form action="/delete/<%= todo._id %>?_method=DELETE" method="POST" style="display: inline;">
+                  <button type="submit"><i class="fa fa-trash-o" style="font-size:24px;color:rgb(255, 255, 255)"></i></button>
+                </form> 
+                <form action="/addSubItem/<%= todo._id %>" method="POST" style="display: inline-flex;">
+                  <input type="text" class="questionnaire" name="subItem" required placeholder="Add Sub Item">
+                  <button type="submit"><i class="fa-solid fa-circle-plus fa-lg" style="color: #f2f2f2;"></i></button>
+                </form>
+          </section>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Topic Name</th>
+                            <th>Sub Topic</th>
+                            <th>Completed (%)</th>
+                            <th>edit</th>
+                            <th>delete</th>
+                            <th>Add Sub Topic</th>
+                            <th>
+                                <p>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1" id="collapse">
+                                        Expand
+                                    </button>
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <!-- subItem loop -->
+                          <%todo.subItems.forEach((subItem, subIndex) => { %>
+                            <td><%=subIndex+1 %></td>
+                            <td class="font-weight-bold">
+                              <%= subItem.text %>
+                            </td>
+ 
+                            <td>TBA</td>
+                            <td>TBA</td>
+                            <td>
+                              <form action="/editSubItem/<%= todo._id %>/<%= subItem._id %>?_method=GET">
+                                <button type="submit">
+                                  <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li>
+                                </button>
+                              </form>
+                            </td>
+                            <td>
+                              <form action="/deleteSubItem/<%= todo._id %>/<%= subItem._id %>?_method=DELETE" method="POST" >
+                                <button type="submit">
+                                  <li><a href="" data-tip="delete"><i class="fa fa-trash"></i></a></li>
+                                </button> 
+                              </form>
+                            </td>
+                            <td colspan="2">
+                              <form action="/addSubItem/<%= todo._id %>/addSubTopic" method="POST" style="display: inline-flex;margin-bottom: 0;">
+                                <input type="hidden" name="subItemIndex" value="<%= subIndex %>"> 
+                                <input type="text" class="questionnaire"  name="text" required placeholder="Add Sub Topic">
+                                <button type="submit"><i class="fa-solid fa-circle-plus fa-lg"></i></button>
+                              </form>
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <tr>
+                              <td colspan="8">
+                                <div class="collapse " id="collapseExample1">
+                                  <div class="card card-body">
+                                      <table class="table ">
+                                          <thead>
+                                              <th>check</th>
+                                              <th>#</th>
+                                              <th>SubTopic Title</th>
+                                              <th></th>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                <!-- subtopic loop -->
+                                                <% subItem.subTopics.forEach((subTopic, subTopicIndex) => { %>
+                                                  <td>
+                                                    <form action="/updateSubTopic/<%= todo._id %>/<%= subIndex %>/<%= subTopicIndex %>?_method=PUT" method="POST" style="display: inline;margin-bottom: 0;">
+                                                      <input type="checkbox" <% if (subTopic.completed) { %>checked<% } %> onchange="this.form.submit()">
+                                                    </form>
+                                                  </td>
+                                                  <td><%= subTopicIndex+1%></td>
+                                                  <td><%= subTopic.text %></td>
+                                                  <td>
+                                                    <form action="/deleteSubTopic/<%= todo._id %>/<%= subIndex %>/<%= subTopicIndex %>?_method=DELETE" method="POST">
+                                                      <button type="submit"><li><a href="" data-tip="delete"><i class="fa fa-trash"></i></a></li></button>
+                                                    </form>
+                                                  </td>    
+                                              </tr>
+                                                <% }) %>
+                                          </tbody>
+                                        </table>
+                                  </div>
+                              </div>
+                              </td>
+                            </tr>
+                          
+                        </tr> 
+                        <% }) %>                       
+                    </tbody>
                 </table>
-              <% } else { %>
-                  <h1 class="text-center text-secondary mt-5">No course found in database!</h1>
-               <%  } %>
-                </div>
-                    
-          </div>
-                
-          </div>
+            </div>
+          </div>         
+              <% }) %>
+          </div>  
+        </div>
+        <!-- Collapse one end-->
       </div>
-    
-      
-      
-      
-<%-include('layout/footer') %>
+    </div>
+  </div>
+  </div>
+</section> 
+
+<%- include('layout/footer');%>

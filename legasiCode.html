@@ -1,0 +1,243 @@
+// main course display
+router.get('/', async (req, res) => {
+    try {
+       const courseData = await CoursesModel.find();
+       res.render('index', { title:"Home Page",courseData: courseData });
+    } catch (err) {
+       console.log(err);
+       res.status(500).send('Server Error');
+    }
+});
+
+router.post('/add',async(req,res)=>{
+    
+    const course = req.body.course;
+    const name = req.body.name;
+    const date = req.body.date;
+    
+    const newCourse = new CoursesModel({courseName, instructorName, roleDate});
+    try {
+        await newCourse.create({ course, name, date, completed: false, subItems:[] });
+        req.session.message = {
+          message: "New Course Added Successfully!",
+          type: "success",
+        };
+      } catch (err) {
+        res.json({ message: err.message, type: "danger" });
+      } finally {
+        res.redirect('/')
+    };  
+  console.log(`${newCourse}saved to the database`);  
+})
+
+//main course update
+router.put('/update/:id', async (req, res) => {
+  const todoId = req.params.id;
+
+  try {
+    const todo = await courseModel.findById(todoId);
+    courseModel.completed = !courseModel.completed;
+    await courseModel.save();
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error updating todo:', error);
+    res.status(500).send('Internal server error');
+  }
+});
+router.get('/update/:id',async(req,res)=>{
+  const todoId = req.params.id;
+  try{
+    const editCourse =await CoursesModel.findById(todoId);
+    
+    if(editCourse == null){
+      res.status(404).send('Course not found');
+    }else{
+      if(editCourse)
+      res.render('edit',{title:'Edit Course',editCourse:editCourse});
+    }
+  }catch(error){
+    console.log(error);
+    res.status(500).send("Error");
+  }
+  
+})
+
+router.post('/update/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedCourse = {
+      courseName: req.body.course_Name,
+      instructorName: req.body.instructor_Name,
+      roleDate: req.body.role_Date
+    }
+
+    
+    const result = await CoursesModel.findByIdAndUpdate(id, updatedCourse,{new:true});
+
+    if (!result) {
+      
+      res.status(404).json({ message: 'Course not found', type: 'danger' });
+    } else {
+      
+      req.session.message = {
+        message: 'Course updated successfully',
+        type: 'success'
+      };
+      res.redirect('/');
+      console.log('Course updated!')
+      
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message, type: 'danger' });
+  }
+});
+
+
+
+
+router.get('/delete/:id', async(req,res)=>{
+  try{
+    const id = req.params.id;
+    const deleteCourse = await CoursesModel.findByIdAndDelete(id);
+    if(deleteCourse == null){
+      res.status(404).send('Course not found');
+      }else{
+        req.session.message = {
+          message: 'Course deleted!',
+          type: 'success'
+        };
+        res.redirect('/')
+        console.log('course deleted from database!');
+        }
+        }catch(error){
+          console.log(error);
+          res.status(500).send('Error');
+          }
+
+})
+
+router.get("/about",(req,res)=>{
+  res.render('about',{title:"About"});
+  
+})
+router.get("/contact",(req,res)=>{
+    res.render('contact',{title:"Contact"});
+   
+})
+router.get("/faq",(req,res)=>{
+    res.render('faq',{title:"FAQs"});
+    
+})
+router.get("/login",(req,res)=>{
+    res.render('login',{title:"User Log In"});
+    
+})
+
+
+---------------------------------------------------------ejs templet------------------------------------
+
+     <h2>Learning Never end</h2>
+      
+  e<form action="/" method="post" >
+    <div class="input-group mb-3" >
+      <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-book"></i></span>
+      <input type="text"  name="course" class="form-control" placeholder="Please Insert the course name..." aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-chalkboard-user"></i></span>
+      <input type="text" name="instructor" class="form-control" placeholder="This Course instruct by..." aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-calendar-days fa-bounce"></i></span>
+      <input type="date" name="date" class="form-control" placeholder="Insert the enrolled date..." aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+      <input type="checkbox" value="" hidden>
+    </div>
+    <div class="mb-3 d-grid">
+      <input type="submit" value="Submit" class="btn btn-primary btn-lg">
+    </div>
+  </form> 
+      
+      <div id="archive"></div>
+      <!-- table of result -->
+      <div class="containr">
+        <div class="row my-4">
+          <div class="col-lg-12 ">
+            <% if (message) { %>
+              <div class="alert alert-dismissible fade show alert-<%= message.type%>" role="alert">
+                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+                <strong><%= message.message%></strong>
+              </div>
+             <% } %>
+            <div class="table-responsive">
+              <%  if  (courseData !="") { %>
+                <table class="table table-striped text-center">
+                  <thead?>
+                      <tr class="table-dark">
+                      <th scope="col"></th>
+                      <th scope="col">#</th>
+                      <th scope="col">Course Name</th>
+                      <th scope="col">Instructor</th>
+                      <th scope="col">Role Date</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                      <th scope="col"></th>
+                      
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% courseData.forEach((row, index)=> { %>
+                      <tr>
+                        <td>
+                          <form >
+                            <form action="/update/<%= courseData._id %>?_method=PUT" method="POST" style="display: inline;">
+                              <input type="checkbox" <% if (courseData.completed) { %>checked<% } %> onchange="this.form.submit()">
+                            </form>
+                          </form>
+                        </td>
+                        <td><%=index +1 %></td>
+                        <td >
+                        <div>
+                        <p><%= row.courseName %></p>
+                        </div>
+                        </td>
+                        <td><%= row.instructorName %></td>
+                        <td><%= row.roleDate %></td>
+                         
+
+                          <!-- <div class="form-check float-none d-flex justify-content-center ">
+                            <input class="form-check-input text-center" type="checkbox" value="" id="flexCheckDefault">
+                          </div> -->
+                      
+                        <td>
+                          <a href="/edit/<%= row._id %>" class="text-success">
+                            <i class="fas fa-edit fa-lg mx-1"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="/delete/<%= row._id %>" class="text-denger">
+                            <i class="fas fa-trash fa-lg mx-1"></i>
+                          </a>
+                        </td>
+                        <td>
+
+                        </td>
+                        
+                      </tr>
+                      <% })%>
+                  </tbody>
+                </table>
+              <% } else { %>
+                  <h1 class="text-center text-secondary mt-5">No course found in database!</h1>
+               <%  } %>
+                </div>
+                    
+          </div>
+                
+          </div>
+      </div>
+---------------------------------------------
+<%=title %>

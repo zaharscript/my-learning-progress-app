@@ -4,24 +4,24 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Task</title>
+  <title>Edit Sub-Item</title>
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/0297596a0a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <h1>Edit Task</h1>
+  <h1>Edit Sub-Item</h1>
   <div style="display:inline-flex !important;align-items: center;">
-    <form action="/edit/<%= todo._id %>?_method=PUT" method="POST">
-      <label for="task">Task:</label>
-      <input type="text" id="task" name="course" value="<%= todo.course %>" required>
-      <input type="text" id="task" name="name" value="<%= todo.name %>" required>
-      <input type="date" value="<%= todo.date %>">
-      <button type="submit">Update Task</button>
+    <form action="/editSubItem/<%= todo._id %>/<%= subItem._id %>?_method=PUT" method="POST">
+      <label for="subItem">Sub-Item:</label>
+      <input type="text" id="subItem" name="subItem" value="<%= subItem.text %>" required>
+      <button type="submit">Update Sub-Item</button>
     </form>
     <form action="/">
       <button><i class="fa-solid fa-house"></i></button>
     </form>
   </div>
   
+
 </body>
 </html>

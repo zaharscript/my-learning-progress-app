@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override')
 // const bootstrap =require('bootstrap');
 
 const app = express();
@@ -25,6 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'))
+app.use(express.static('javascript'));
 
 
 
