@@ -4,7 +4,7 @@
   "description": "checklist of my ongoing learning sylibus ",
   "main": "apps.js",
   "engines": {
-    "node": "18.x"
+    "node": "18"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
