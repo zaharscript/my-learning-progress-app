@@ -2,13 +2,13 @@
   "name": "my-learning-syllibus-checklist",
   "version": "1.0.0",
   "description": "checklist of my ongoing learning sylibus ",
-  "main": "apps.js",
+  "main": "index.js",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
