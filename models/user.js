@@ -22,4 +22,4 @@ const Todo = mongoose.model("Todo", todoSchema);
 console.log(Todo.modelName); // Outputs: Courses
 module.exports = Todo;
 
-// module.exports = mongoose.model('Courses', courseSchema)
+

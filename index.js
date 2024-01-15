@@ -48,6 +48,7 @@ app.use((req,res,next)=>{
 
 //save templete engine
 app.set('view engine','ejs');
+app.set("views", "./views");
 
 //routes prefix
 app.use("", require("./routes/routes"));
