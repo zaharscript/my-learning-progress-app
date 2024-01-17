@@ -62,13 +62,19 @@
               <h6><i>by <%=todo.name %></i> Date enrolled:<%= todo.date %></h6>
               <h6>Status: <i style="color: #27e1ee;">In Progress</i></h6>
           </a>
-          <section class="container questionnaire">
+          <section class="container questionnaire "> 
+                <form action="/addSubItem/<%= todo._id %> "  method="POST" style="display: inline-flex;" >
+                  <div class="input-group mb-2 mr-sm-2 " >
+                    <div class="input-group-prepend ">
+                      <div class="input-group-text">
+                        <button type="submit"><i class="fa-solid fa-circle-plus fa-lg" style="color: #365cd8;"></i></button>
+                      </div>
+                      <input type="text" class="questionnaire" name="subItem" required placeholder="Add Sub Item">
+                    </div>
+                  </div>
+                </form>
                 <form action="/delete/<%= todo._id %>?_method=DELETE" method="POST" style="display: inline;">
                   <button type="submit"><i class="fa fa-trash-o" style="font-size:24px;color:rgb(255, 255, 255)"></i></button>
-                </form> 
-                <form action="/addSubItem/<%= todo._id %>" method="POST" style="display: inline-flex;">
-                  <input type="text" class="questionnaire" name="subItem" required placeholder="Add Sub Item">
-                  <button type="submit"><i class="fa-solid fa-circle-plus fa-lg" style="color: #f2f2f2;"></i></button>
                 </form>
           </section>
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
