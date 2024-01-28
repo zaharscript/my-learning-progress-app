@@ -2,12 +2,17 @@
 
 .completed {
   text-decoration: line-through;
-  text-decoration-color: #83e3c3;
+  text-decoration-color: #f5f3f4;
+  color:#e678a9 ;
+  
 }
-
+td{
+  color: aliceblue;
+}
 
 body {
   background: #FF512F;
+  overflow:visible;
 
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #DD2476, #FF512F);

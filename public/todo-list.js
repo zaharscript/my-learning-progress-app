@@ -20,3 +20,20 @@ $(document).ready(function () {
   });
   
 });
+
+document.getElementById('checkBox').addEventListener('click', function (e) {
+  e.preventDefault(); // Prevent the default checkbox behavior
+  // Your checkbox handling logic here
+});
+
+$(document).ready(function(){
+  $('#toggleButton').on("click",function(){
+    if($(this).prop('checked')){
+     
+      $('#collapseOne').attr('id', 'collapseOneNew').removeClass('collapseNew').addClass('collapse');
+    } else {
+      
+      $('#collapseOneNew').attr('id', 'collapseOne').removeClass('collapse').addClass('collapseNew');
+    }
+  });
+});

@@ -42,6 +42,7 @@
           </form>
 
         </section><br>
+        
         <!-- row -->
         <div class="row">
           <div class="col-md-12">
@@ -54,6 +55,7 @@
                     <!-- main course loop -->
 
                     <h5 class="py-2">
+                      
                       <% todo.forEach((todo, index)=> { %>
                         <%= todo.course %> <span class="float-right"><i class="fas fa-angle-down"></i></span>
                           <form action="/edit/<%= todo._id %>?_method=GET" method="POST" style="display: inline;">
@@ -81,7 +83,9 @@
                           style="font-size:24px;color:rgb(255, 255, 255)"></i></button>
                     </form>
                   </section>
-                  <!-- <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"> -->
+                  <!-- collapse element [id="collapseOne" class="collapse"]-->
+                  <div id="" class="" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <!-- collapse element end-->
                     <div class="card-body">
                       <table class="table">
                         <thead>
@@ -146,7 +150,9 @@
                               </td>
                           <tr>
                             <td colspan="8">
-                              <!-- <div class="collapse " id="collapseExample1"> -->
+                              <!-- collapse element [class="collapse " id="collapseExample1"]-->
+                              <div class=" " id="">
+                                <!-- collapse end -->
                                 <div class="card card-body">
                                   <table class="table ">
                                     <thead>
@@ -163,14 +169,14 @@
                                             <form
                                               action="/updateSubTopic/<%= todo._id %>/<%= subIndex %>/<%= subTopicIndex %>?_method=PUT"
                                               method="POST" style="display: inline;margin-bottom: 0;">
-                                              <input type="checkbox" <% if (subTopic.completed) { %>checked<% } %>
+                                              <input type="checkbox" id="checkBox" <% if (subTopic.completed) { %>checked<% } %>
                                                 onchange="this.form.submit()">
                                             </form>
                                           </td>
-                                          <td>
+                                          <td class="<%= subTopic.completed ? 'completed' : '' %>">
                                             <%= subTopicIndex+1%>
                                           </td>
-                                          <td>
+                                          <td class="<%= subTopic.completed ? 'completed' : '' %>">
                                             <%= subTopic.text %>
                                           </td>
                                           <td>
