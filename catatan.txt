@@ -1,0 +1,13 @@
+
+
+
+<li class="<%= courseData.completed ? 'completed' : '' %>">
+                            <form action="/" method="POST" style="display: inline;">
+                              <input type="hidden" name="todoId" value="<%= row._id %>">
+                              <input type="checkbox" <% if (courseData.completed) { %>checked<% } %> onchange="this.form.submit()">
+                            </form>
+                            
+                          </li>
+
+------------------------------------------------------
+"<%= courseData.completed ? 'completed' : '' %>"

@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css?family=Damion|Muli:400,600');
+
+.completed {
+  text-decoration: line-through;
+  text-decoration-color: #f5f3f4;
+  color:#ffffff ;
+  
+}
+td{
+  color: aliceblue;
+}
+
+body {
+  background: #FF512F;
+  overflow:visible;
+
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #DD2476, #FF512F);
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #DD2476, #FF512F);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: 'Damion', cursive;
+  font-weight: 400;
+  color: #4caf50;
+  font-size: 35px;
+  text-align: center;
+  position: relative;
+}
+
+/* h1:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  left: 0;
+  top: 22px;
+  background: #1206be;
+  height: 1px;
+} */
+
+h1 i {
+  font-style: normal;
+  background: transparent;
+  position: relative;
+  padding: 10px;
+}
+
+.btc-accordion {
+  padding-top: 0;
+}
+
+.btc-accordion .card {
+  cursor: pointer;
+  color: #f2f2f2;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btc-accordion .card a {
+  color: #f2f2f2;
+  text-decoration: none;
+}
+
+.accordion-icon[aria-expanded="false"] .fa-angle-down {
+  transform: rotate(0deg);
+}
+
+.accordion-icon[aria-expanded="true"] .fa-angle-down {
+  transform: rotate(180deg);
+  transition: 0.5s;
+}
+
+input[type="text"] {
+  font: 15px/24px 'Muli', sans-serif;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+}
+
+.col {
+  float: none;
+  width: 100%;
+  margin: 40px 3%;
+  position: relative;
+}
+
+.questionnaire {
+  display: inline-flex;
+  border: none;
+  padding: 7px 14px 9px;
+  transition: 1s;
+  width: 100%;
+  background-color: rgba(255, 255, 255, .27);
+}
+
+.questionnaire~.focus-border:before,
+.questionnaire~.focus-border:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #130c79;
+  transition: 1s;
+}
+
+.questionnaire~.focus-border:after {
+  top: auto;
+  bottom: 0;
+  left: auto;
+  right: 0;
+}
+
+.questionnaire~.focus-border i:before,
+.questionnaire~.focus-border i:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background-color: #130c79;
+  transition: 1s;
+}
+
+.questionnaire~.focus-border i:after {
+  left: auto;
+  right: 0;
+  top: auto;
+  bottom: 0;
+}
+
+.questionnaire:focus~.focus-border:before,
+.questionnaire:focus~.focus-border:after {
+  width: 100%;
+  transition: 0.3s;
+}
+
+.questionnaire:focus~.focus-border i:before,
+.questionnaire:focus~.focus-border i:after {
+  height: 100%;
+  transition: 0.4s;
+}
+
+:focus {
+  outline: none;
+}
+
+button {
+  background: transparent;
+  border: none;
+  padding: 7px 14px 9px;
+}
+
+.contentBox {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.buttonBox {
+  margin: 0 20px 40px;
+  position: relative;
+  max-width: 200px;
+  min-width: 150px;
+  flex: 20%;
+}
+
+.testingButton {
+  width: 100%;
+  height: 80px;
+  position: relative;
+  background: rgba(255, 255, 255, .27);
+  text-transform: uppercase;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  cursor: pointer;
+}
+
+.border {
+  position: absolute;
+  background: none;
+  transition: all .5s ease-in-out;
+}
+
+/* FOURTH BUTTON */
+
+#fourth>.border:nth-of-type(1) {
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 1px solid white;
+}
+
+#fourth>.border:nth-of-type(2) {
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-right: 1px solid white;
+}
+
+#fourth>.border:nth-of-type(3) {
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 1px solid white;
+}
+
+#fourth>.border:nth-of-type(4) {
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 1px solid white;
+}
+
+#fourth:hover .border:nth-of-type(1) {
+  width: 100%;
+}
+
+#fourth:hover .border:nth-of-type(2) {
+  height: 80px;
+}
+
+#fourth:hover .border:nth-of-type(3) {
+  width: 100%;
+}
+
+#fourth:hover .border:nth-of-type(4) {
+  height: 80px;
+}
