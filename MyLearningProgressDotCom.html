@@ -7,6 +7,7 @@
   <title>MyLearningProgress.com</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="https://kit.fontawesome.com/0297596a0a.js" crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
 </head>
@@ -17,8 +18,8 @@
 
   .circular-progress {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: conic-gradient(#4ade80 0% 65%, #e5e7eb 65% 100%);
     display: flex;
@@ -30,16 +31,16 @@
   .circular-progress::before {
     content: "";
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 70px;
+    height: 70px;
     background: #fff;
     border-radius: 50%;
   }
 
   .circular-progress-2 {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: conic-gradient(#4ade80 0% 25%, #e5e7eb 25% 100%);
     display: flex;
@@ -51,16 +52,16 @@
   .circular-progress-2::before {
     content: "";
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 70px;
+    height: 70px;
     background: #fff;
     border-radius: 50%;
   }
 
   .circular-progress-3 {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: conic-gradient(#4ade80 0% 80%, #e5e7eb 80% 100%);
     display: flex;
@@ -72,8 +73,8 @@
   .circular-progress-3::before {
     content: "";
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 70px;
+    height: 70px;
     background: #fff;
     border-radius: 50%;
   }
@@ -157,7 +158,20 @@
 
       </button>
     </h2>
+
     <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+      <!-- sub topic adding form -->
+      <form class="max-w-sm mx-auto">
+        <div class=" flex m-5">
+          <label for="topic" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">topic</label>
+          <input type="text" id="text"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-l-full"
+            placeholder="Add Topic title" required />
+          <button type="submit"
+            class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium font-medium  text-sm w-auto sm:w-1/3 rounded-r-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i
+              class="fa-solid fa-plus"></i></button>
+        </div>
+      </form>
       <div class="p-5 border border-b-0 border-gray-200 ">
         <!-- table start -->
         <!-- topic table start -->
@@ -175,6 +189,7 @@
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   SECTION 1: Front-End Web Development
                 </th>
+
                 <td class="px-6 py-4">
                   <!-- checkbox -->
                   <div class="flex items-center mb-4 justify-center">
@@ -186,7 +201,72 @@
                 </td>
 
               </tr>
-              <p class="text-green-500 text-lg">sub topic table here</p>
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
+
+
+              <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">
+                        SubTopic Title
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Completed
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Apple MacBook Pro 17"
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Microsoft Surface Pro
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+
+                    </tr>
+                    <tr class="bg-white dark:bg-gray-800">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Magic Mouse 2
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
               <tr class="odd:bg-white  even:bg-gray-50  border-b ">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   SECTION 2: Introduction to HTML
@@ -202,6 +282,72 @@
                 </td>
 
               </tr>
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
+
+
+              <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">
+                        SubTopic Title
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Completed
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Apple MacBook Pro 17"
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Microsoft Surface Pro
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+
+                    </tr>
+                    <tr class="bg-white dark:bg-gray-800">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Magic Mouse 2
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
               <tr class="odd:bg-white  even:bg-gray-50  border-b ">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   SECTION 3: Intermediate HTML
@@ -217,6 +363,72 @@
 
                 </td>
               </tr>
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
+
+
+              <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">
+                        SubTopic Title
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Completed
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Apple MacBook Pro 17"
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Microsoft Surface Pro
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+
+                    </tr>
+                    <tr class="bg-white dark:bg-gray-800">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Magic Mouse 2
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
               <tr class="odd:bg-white  even:bg-gray-50  border-b ">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   SECTION 4: Multi-Page Website
@@ -232,6 +444,72 @@
 
                 </td>
               </tr>
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
+
+
+              <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">
+                        SubTopic Title
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Completed
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Apple MacBook Pro 17"
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Microsoft Surface Pro
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+
+                    </tr>
+                    <tr class="bg-white dark:bg-gray-800">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Magic Mouse 2
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
               <tr>
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   SECTION 5: Introduction to CSS
@@ -246,6 +524,72 @@
                   <!-- checkbox end -->
                 </td>
               </tr>
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
+
+
+              <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">
+                        SubTopic Title
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Completed
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Apple MacBook Pro 17"
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Microsoft Surface Pro
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+
+                    </tr>
+                    <tr class="bg-white dark:bg-gray-800">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Magic Mouse 2
+                      </th>
+                      <td class="px-6 py-4">
+                        <!-- checkbox -->
+                        <div class="flex items-center mb-4 justify-center">
+                          <input id="default-checkbox" type="checkbox" value=""
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 ">
+
+                        </div>
+                        <!-- checkbox end -->
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- -------------------------------------testing line ------------------------------------------------------------------------------------------------>
             </tbody>
           </table>
         </div>
