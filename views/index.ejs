@@ -42,7 +42,7 @@
           </form>
 
         </section><br>
-        
+
         <!-- row -->
         <div class="row">
           <div class="col-md-12">
@@ -55,8 +55,8 @@
                     <!-- main course loop -->
 
                     <h5 class="py-2">
-                      
-                      <% todo.forEach((todo, index)=> { %>
+
+                      <% tondo.forEach((todo, index)=> { %>
                         <%= todo.course %> <span class="float-right"><i class="fas fa-angle-down"></i></span>
                           <form action="/edit/<%= todo._id %>?_method=GET" method="POST" style="display: inline;">
                             <button type="submit"><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></button>
@@ -74,7 +74,7 @@
                             <button type="submit"><i class="fa-solid fa-circle-plus fa-lg"
                                 style="color: #365cd8;"></i></button>
                           </div>
-                          <input type="text" class="questionnaire " name="subItem" required placeholder="Add Sub Item" >
+                          <input type="text" class="questionnaire " name="subItem" required placeholder="Add Sub Item">
                         </div>
                       </div>
                     </form>
@@ -85,7 +85,7 @@
                   </section>
                   <!-- collapse element [id="collapseOne" class="collapse"]-->
                   <div id="" class="" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <!-- collapse element end-->
+                    <!-- collapse element end-->
                     <div class="card-body">
                       <table class="table">
                         <thead>
@@ -169,7 +169,8 @@
                                             <form
                                               action="/updateSubTopic/<%= todo._id %>/<%= subIndex %>/<%= subTopicIndex %>?_method=PUT"
                                               method="POST" style="display: inline;margin-bottom: 0;">
-                                              <input type="checkbox" id="checkBox" <% if (subTopic.completed) { %>checked<% } %>
+                                              <input type="checkbox" id="checkBox" <% if (subTopic.completed) {
+                                                %>checked<% } %>
                                                 onchange="this.form.submit()">
                                             </form>
                                           </td>
