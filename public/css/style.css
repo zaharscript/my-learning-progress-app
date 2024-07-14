@@ -3,16 +3,17 @@
 .completed {
   text-decoration: line-through;
   text-decoration-color: #f5f3f4;
-  color:#ffffff ;
-  
+  color: #ffffff;
+
 }
-td{
+
+td {
   color: aliceblue;
 }
 
 body {
   background: #FF512F;
-  overflow:visible;
+  overflow: visible;
 
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #DD2476, #FF512F);
@@ -89,7 +90,7 @@ input[type="text"] {
   position: relative;
 }
 
-.questionnaire {
+/* .questionnaire {
   display: inline-flex;
   border: none;
   padding: 7px 14px 9px;
@@ -187,7 +188,7 @@ button {
   outline: none;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   cursor: pointer;
-}
+} */
 
 .border {
   position: absolute;
@@ -243,4 +244,12 @@ button {
 
 #fourth:hover .border:nth-of-type(4) {
   height: 80px;
+
+}
+
+
+.background-photo {
+  background-image: url("/public/images/kenny-eliason-1-aA2Fadydc-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
