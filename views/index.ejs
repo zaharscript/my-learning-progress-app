@@ -5,7 +5,7 @@
   <div class="flex-1 flex flex-col md:flex-row ">
     <!-- register form -->
 
-    <form class=" md:flex-2/3 p-4 " action="/add" method="POST">
+    <form class=" md:flex-2/3 md:w-1/4 lg:w-1/6 xl:w-1/6 p-4 " action="/add" method="POST">
       <div class="bg-blue-200 p-4 rounded-lg">
         <div class="mb-5">
           <div class="mb-5">
@@ -45,11 +45,10 @@
         </div>
         <div class="mb-5">
           <div id="fourth" class="buttonBox">
-            <button class="testingButton" type="submit">Register Course</button>
-            <div class="border"></div>
-            <div class="border"></div>
-            <div class="border"></div>
-            <div class="border"></div>
+            <button
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="submit">Register Courses</button>
+
           </div>
         </div>
       </div>
@@ -57,10 +56,11 @@
     </form>
 
 
-    <div class="flex-1 md:flex-1/3 p-4 md:px-3 ">
+    <main class="flex-grow p-4">
       <!--  accordion -->
-      <div id="accordion-nested-parent" data-accordion="collapse">
-        <% todo.forEach((todo, index)=> { %>
+      <% todo.forEach((todo, index)=> { %>
+        <div id="accordion-nested-parent" data-accordion="collapse">
+
           <h2 id="accordion-collapse-heading-1">
             <button type="button"
               class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
@@ -119,7 +119,7 @@
 
                     <!-- delete icon -->
 
-                    <button onclick="window.location.href='/delete/<%= todo._id %>?_method=DELETE'" class="m-2">
+                    <button onclick="deleteItem('<%= todo._id %>')" class="m-2">
                       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
                         viewBox="0 0 100 100">
                         <path fill="#8b8bc1"
@@ -176,18 +176,15 @@
                   </div>
                 </div>
 
-
-
-
               </span>
 
 
             </button>
           </h2>
-          <% }) %>
-      </div>
 
-    </div>
+        </div>
+        <% }) %>
+    </main>
 
 
     <!-- ------------------------------------------------------------------------------------     -->
