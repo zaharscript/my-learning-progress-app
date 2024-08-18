@@ -21,9 +21,7 @@ router.post("/add", async (req, res) => {
   const platform = req.body.platform;
   const course = req.body.course;
   const name = req.body.name;
-
-  const date = new Date(req.body.date);
-  date = date.toDateString();
+  const date = req.body.date;
 
   try {
     await Todo.create({
