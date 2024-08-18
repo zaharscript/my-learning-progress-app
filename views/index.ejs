@@ -1,358 +1,497 @@
-<%- include('layout/header');%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyLearningProgress.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="https://kit.fontawesome.com/0297596a0a.js" crossorigin="anonymous"></script>
+  <script>
+    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+    }
 
 
-  <!-- Main Content -->
-  <div class="flex-1 flex flex-col md:flex-row ">
-    <!-- register form -->
 
-    <form class=" md:flex-2/3 md:w-1/4 lg:w-1/6 xl:w-1/6 p-4 " action="/add" method="POST">
-      <div class="bg-blue-200 p-4 rounded-lg">
-        <div class="mb-5">
-          <div class="mb-5">
-            <label for="platform" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Platform</label>
-            <input type="text" id="platform"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Platform Name" name="platform" required />
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    @media (min-width: 640px) {
+      .content {
+        flex-direction: row;
+      }
+    }
+
+    .main-section {
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="main-container">
+
+    <!-- Navbar -->
+
+
+    <nav class="2xl:w-screen bg-white border-gray-200 dark:bg-gray-900">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://github.com/zaharscript/" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="/images/icons8-learn-66.png" class="h-8" alt="Flowbite Logo" />
+          <span
+            class="self-center text-2xl font-semibold whitespace-nowrap  dark:text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 text-transparent bg-clip-text">MyLearningProgress</span>
+        </a>
+        <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button type="button"
+            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+            data-dropdown-placement="bottom">
+            <span class="sr-only">Open user menu</span>
+            <img class="w-8 h-8 rounded-full " src="/images/Zahar.jpg" alt="user photo">
+          </button>
+          <div class="flex">
+            <!-- Dropdown menu -->
+            <div
+              class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              id="user-dropdown">
+              <div class="px-4 py-3">
+                <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
+                <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+              </div>
+              <ul class="py-2" aria-labelledby="user-menu-button">
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                    out</a>
+                </li>
+              </ul>
+            </div>
+            <!-- dark mode toggle button -->
+            <button id="theme-toggle" type="button"
+              class="bg-slate-400 text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700  my-4 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ml-5 mb-5 ">
+              <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="white" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
+                </path>
+              </svg>
+              <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="white" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                  fill-rule="evenodd" clip-rule="evenodd"></path>
+              </svg>
+            </button>
           </div>
-          <label for="platform" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter
-            Your Course Name</label>
-          <input
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            type="text" name="course" placeholder="Course name" required>
-          <span class="focus-border">
-            <i></i>
-          </span>
-        </div>
-        <div class="mb-5">
-          <label for="instructor name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Instructed
-            by</label>
-          <input
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            type="text" name="name" placeholder="Instructor name" required>
-          <span class="focus-border">
-            <i></i>
-          </span>
-        </div>
-        <div class="mb-5">
-          <label for="Enrolled date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter
-            Enter Your Enrolled Date </label>
-          <input
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            type="date" name="date" placeholder="Date enrolled" required>
-          <span class="focus-border">
-            <i></i>
-          </span>
-        </div>
-        <div class="mb-5">
-          <div id="fourth" class="buttonBox">
-            <button
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="submit">Register Courses</button>
 
-          </div>
+          <button data-collapse-toggle="navbar-user" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-user" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+          <ul
+            class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                aria-current="page">Home</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+            </li>
+          </ul>
         </div>
       </div>
 
-    </form>
+    </nav>
 
 
-    <main class="flex-grow p-4">
-      <!--  accordion -->
-      <% todo.forEach((todo, index)=> { %>
-        <div id="accordion-nested-parent" data-accordion="collapse">
-
-          <h2 id="accordion-collapse-heading-1">
-            <button type="button"
-              class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-              data-accordion-target="#accordion-collapse-body-1" aria-expanded="false"
-              aria-controls="accordion-collapse-body-1">
-
-
-              <!-- course detail -->
-              <span class="flex flex-col place-items-start justify-start md:flex-row lg:flex-row w-full ">
-                <div class="basis-1/4 font-bold lg:-ml-32 lg:self-start">
-                  Platform: <span class="italic">YouTube</span></div>
-                <div class="basis-1/4 italic font-bold">
-                  <%=todo.course %>
-                </div>
-                <div class="basis-1/5 italic font-bold">By: <span class="italic font-bold">
-                    <%= todo.name %>
-                  </span>
-                </div>
-                <div class="basis-1/5 font-bold ">Enrolled On: <span class="italic">
-                    <%= todo.date %>
-                  </span></div>
-                <div class="basis-1/5 ">Completed: 51%
-                  <!-- edit & delete icon -->
-                  <div class="flex-1 flex justify-end items-center space-x-2">
-                    <!-- edit icon -->
-
-                    <button onclick="window.location.href='/edit/<%= todo._id %>?_method=GET'" class="m-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
-                        viewBox="0 0 64 64">
-                        <path fill="#ed7899"
-                          d="M46.2,7.92h9.63a4,4,0,0,1,4,4V17.1a0,0,0,0,1,0,0H42.2a0,0,0,0,1,0,0V11.92a4,4,0,0,1,4-4Z"
-                          transform="rotate(45 51.017 12.512)">
-                        </path>
-                        <path fill="#c2cde7" d="M32.5 15.51H55.129999999999995V24.869999999999997H32.5z"
-                          transform="rotate(45 43.817 20.19)">
-                        </path>
-                        <path fill="#f9e3ae" d="M17.12 17.45H35.5V57.92999999999999H17.12z"
-                          transform="rotate(45 26.318 37.691)">
-                        </path>
-                        <path fill="#f6d397" d="M27.38 21.7H33.74V62.17999999999999H27.38z"
-                          transform="rotate(45 30.567 41.941)">
-                        </path>
-                        <path fill="#faefde" d="M5 57L6 46 13 47 14 50 16.92 51.5 19 59 7 59 5 57z">
-                        </path>
-                        <path fill="#faefde" d="M18.88 13.2H25.24V53.67999999999999H18.88z"
-                          transform="rotate(45 22.068 33.441)">
-                        </path>
-                        <path fill="#8d6c9f"
-                          d="M60.59,15.9a4,4,0,0,0-1.17-2.83L50.93,4.59a4.09,4.09,0,0,0-5.66,0L41,8.83a2,2,0,0,0-2.83,0l-5.66,5.66a2,2,0,0,0,0,2.83l.05.05L5.52,44.4a3,3,0,0,0-.87,1.88L4,54.68l-.7,4.92a1,1,0,0,0,1,1.14H4.4L9.32,60l8.45-.62a3,3,0,0,0,1.9-.87l27.08-27a2,2,0,0,0,2.77,0l5.66-5.66a2,2,0,0,0,0-2.83l4.24-4.24A4,4,0,0,0,60.59,15.9Zm-48.69,32,.58,2.88a1,1,0,0,0,.78.78l2.88.58,1.07,5.34L9.59,58,6,54.41l.61-7.6ZM19,56.35l-1-4.77L34.67,35a1,1,0,0,0-1.41-1.41L16.66,50.17,14.3,49.7l-.47-2.36L27.59,33.58a1,1,0,0,0-1.41-1.41L12.42,45.93,7.75,45,34,18.78,45.32,30.09ZM52.34,25.8h0a1,1,0,0,0-1.41,0l-1.41,1.41a1,1,0,0,0,0,1.41h0L48.1,30h0L34,15.9l1.41-1.41a1,1,0,0,0,1.41,0l1.41-1.41a1,1,0,0,0,0-1.41l1.41-1.41.71.71L53.05,23.68l.71.71ZM58,17.31l-4.24,4.24L42.44,10.24,46.69,6a2,2,0,0,1,2.83,0L58,14.49a2,2,0,0,1,0,2.83Z">
-                        </path>
-                        <path fill="#8d6c9f"
-                          d="M40.32 15.19l-1.41 1.41A1 1 0 1 0 40.32 18l1.41-1.41a1 1 0 0 0-1.41-1.41zM43.86 18.73l-1.41 1.41a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 0 0-1.41-1.41zM47.39 22.26L46 23.68a1 1 0 1 0 1.41 1.41l1.41-1.41a1 1 0 0 0-1.41-1.41zM31.84 26.51L29 29.33a1 1 0 1 0 1.41 1.41l2.83-2.83a1 1 0 0 0-1.41-1.41z">
-                        </path>
-                      </svg>
-                    </button>
-
-                    <!-- delete icon -->
-
-                    <button onclick="deleteItem('<%= todo._id %>')" class="m-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
-                        viewBox="0 0 100 100">
-                        <path fill="#8b8bc1"
-                          d="M73,30L73,30H27h-5v5l5,5l0,36.308C27,83.288,32.295,87,38.766,87h22.269C67.616,87,73,83.288,73,76.308 V39.917L78,35v-5H73z">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M61.035,88H38.766C31.13,88,26,83.301,26,76.308V40.414l-4.707-4.707C21.105,35.52,21,35.265,21,35v-5 c0-0.552,0.448-1,1-1h56c0.552,0,1,0.448,1,1v5c0,0.268-0.108,0.525-0.299,0.713L74,40.336v35.972C74,83.301,68.79,88,61.035,88 z M23,34.586l4.707,4.707C27.895,39.48,28,39.735,28,40v36.308C28,83.461,33.8,86,38.766,86h22.269 C66.093,86,72,83.461,72,76.308V39.917c0-0.268,0.108-0.525,0.299-0.713L77,34.581V31H23V34.586z">
-                        </path>
-                        <path fill="#6869ad"
-                          d="M32.5,60.5l0-19.583c0-1.375,1.125-2.5,2.5-2.5h0c1.375,0,2.5,1.125,2.5,2.5v18.75v15.25 c0,1.375-1.125,2.5-2.5,2.5h0c-1.375,0-2.5-1.125-2.5-2.5l0-3.417">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M35,77.917c-1.654,0-3-1.346-3-3V71.5c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v3.417 c0,1.103,0.897,2,2,2s2-0.897,2-2v-34c0-1.103-0.897-2-2-2s-2,0.897-2,2V60.5c0,0.276-0.224,0.5-0.5,0.5S32,60.776,32,60.5 V40.917c0-1.654,1.346-3,3-3s3,1.346,3,3v34C38,76.571,36.654,77.917,35,77.917z">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M32.5,66c-0.276,0-0.5-0.224-0.5-0.5v-3c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v3 C33,65.776,32.776,66,32.5,66z">
-                        </path>
-                        <path fill="#6869ad"
-                          d="M45,77.5L45,77.5c-1.375,0-2.5-1.125-2.5-2.5V41c0-1.375,1.125-2.5,2.5-2.5h0c1.375,0,2.5,1.125,2.5,2.5v34 C47.5,76.375,46.375,77.5,45,77.5z">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M45,78c-1.654,0-3-1.346-3-3V41c0-1.654,1.346-3,3-3s3,1.346,3,3v34C48,76.654,46.654,78,45,78z M45,39 c-1.103,0-2,0.897-2,2v34c0,1.103,0.897,2,2,2s2-0.897,2-2V41C47,39.897,46.103,39,45,39z">
-                        </path>
-                        <path fill="#6869ad"
-                          d="M55,77.5L55,77.5c-1.375,0-2.5-1.125-2.5-2.5V41c0-1.375,1.125-2.5,2.5-2.5h0c1.375,0,2.5,1.125,2.5,2.5v34 C57.5,76.375,56.375,77.5,55,77.5z">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M55,78c-1.654,0-3-1.346-3-3V41c0-1.654,1.346-3,3-3s3,1.346,3,3v34C58,76.654,56.654,78,55,78z M55,39 c-1.103,0-2,0.897-2,2v34c0,1.103,0.897,2,2,2s2-0.897,2-2V41C57,39.897,56.103,39,55,39z">
-                        </path>
-                        <path fill="#6869ad"
-                          d="M65,77.5L65,77.5c-1.375,0-2.5-1.125-2.5-2.5V41c0-1.375,1.125-2.5,2.5-2.5l0,0c1.375,0,2.5,1.125,2.5,2.5 v34C67.5,76.375,66.375,77.5,65,77.5z">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M65,78c-1.654,0-3-1.346-3-3V41c0-1.654,1.346-3,3-3s3,1.346,3,3v34C68,76.654,66.654,78,65,78z M65,39 c-1.103,0-2,0.897-2,2v34c0,1.103,0.897,2,2,2s2-0.897,2-2V41C67,39.897,66.103,39,65,39z">
-                        </path>
-                        <path fill="#a3a3cd"
-                          d="M78,30v-0.237C78,22.749,75.127,19,66.727,19H33.273C24.873,19,22,22.749,22,29.763V30H78z">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M78 31H22c-.552 0-1-.448-1-1v-.237C21 21.628 24.785 18 33.272 18h33.455C75.215 18 79 21.628 79 29.763V30C79 30.552 78.552 31 78 31zM23.013 29h53.975c-.216-6.38-3.237-9-10.26-9H33.272C26.25 20 23.229 22.62 23.013 29zM78.5 34h-55c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h55c.276 0 .5.224.5.5S78.776 34 78.5 34zM71.5 83h-42c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h42c.276 0 .5.224.5.5S71.776 83 71.5 83z">
-                        </path>
-                        <path fill="#1f212b"
-                          d="M60 20H40c-.552 0-1-.448-1-1v-2.646C39 13.401 41.309 11 44.146 11h11.708C58.691 11 61 13.401 61 16.354V19C61 19.552 60.552 20 60 20zM41 18h18v-1.646C59 14.504 57.589 13 55.854 13H44.146C42.411 13 41 14.504 41 16.354V18zM68.5 27h-46c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h46c.276 0 .5.224.5.5S68.776 27 68.5 27zM73 58.917c-.552 0-1-.448-1-1v-14c0-.552.448-1 1-1 2.757 0 5 2.243 5 5v6C78 56.673 75.757 58.917 73 58.917zM74 45.088v11.657c1.164-.413 2-1.525 2-2.829v-6C76 46.613 75.164 45.5 74 45.088zM27 58.917c-2.757 0-5-2.243-5-5v-6c0-2.757 2.243-5 5-5 .552 0 1 .448 1 1v14C28 58.469 27.552 58.917 27 58.917zM26 45.088c-1.164.413-2 1.525-2 2.829v6c0 1.304.836 2.416 2 2.829V45.088zM74.5 27h-3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h3c.276 0 .5.224.5.5S74.776 27 74.5 27z">
-                        </path>
-                      </svg>
-                    </button>
-
-                    <!-- expand/retrace button -->
-                    <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5 5 1 1 5" />
-                    </svg>
-                  </div>
-                </div>
-
-              </span>
-
-
-            </button>
-          </h2>
-
+    <!-- <div class="md:flex flex-col md:flex-row md:min-h-1 w-full header-bg bg-cover bg-center">
+      <div @click.away="open = false"
+        class="flex flex-col w-full md:w-64 text-gray-700 bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
+        x-data="{ open: false }">
+        <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
+          <img src="/images/icons8-learn-66.png" class="h-8 mx-3" alt="Flowbite Logo" />
+          <a href="#"
+            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 text-transparent bg-clip-text">MyLearningProgress
+          </a>
+          <button class="rounded-lg md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+            <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+              <path x-show="!open" fill-rule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+                clip-rule="evenodd"></path>
+              <path x-show="open" fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
         </div>
-        <% }) %>
-    </main>
+        <nav :class="{'block': open, 'hidden': !open}" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
+          <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+            href="#">Dashboard</a>
+          <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+            href="#">My Tracking</a>
+          <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+            href="#">About</a>
+          <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+            href="#">Contact</a> -->
+    <!-- dark mode toggle button -->
+    <!-- <button id="theme-toggle" type="button"
+            class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 ml-5 mb-5 ">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="white" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
+              </path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="white" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </div> -->
 
 
-    <!-- ------------------------------------------------------------------------------------     -->
-    <div class="col-md-12">
-      <div class="accordion mb-2" id="accordionExample">
-        <!-- Collapse one -->
-        <div class="card">
-          <div class="card-header " id="headingOne">
-            <a class="accordion-icon" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-              aria-controls="collapseOne">
-              <!-- main course loop -->
 
-              <h5 class="py-2">
 
-                <% todo.forEach((todo, index)=> { %>
-                  <%= todo.course %> <span class="float-right"><i class="fas fa-angle-down"></i></span>
-                    <form action="/edit/<%= todo._id %>?_method=GET" method="POST" style="display: inline;">
-                      <button type="submit"><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></button>
-                    </form>
-              </h5>
-              <h6><i>by <%=todo.name %></i> Date enrolled:<%= todo.date %>
-              </h6>
-              <h6>Status: <i style="color: #27e1ee;">In Progress</i></h6>
-            </a>
-            <section class="container  ">
-              <form action="/addSubItem/<%= todo._id %> " method="POST" style="display: inline-flex;" class="">
-                <div class="input-group mb-2 mr-sm-2 ">
-                  <div class="input-group-prepend ">
-                    <div class="input-group-text ">
-                      <button type="submit"><i class="fa-solid fa-circle-plus fa-lg"
-                          style="color: #365cd8;"></i></button>
-                    </div>
-                    <input type="text" class="questionnaire " name="subItem" required placeholder="Add Sub Item">
+
+    <!-- Main Content -->
+    <div class="content">
+      <div class="bg-blue-500 w-full sm:w-1/3 p-4">
+        <!-- form -->
+        <form class="md:flex-2/3 p-4 " action="/add" method="POST">
+          <div class="bg-blue-200 p-4 rounded-lg">
+            <div class="mb-5">
+              <div class="mb-5">
+                <label for="platform"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Platform</label>
+                <input type="text" id="platform"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Platform Name" name="platform" required />
+              </div>
+              <label for="course" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter
+                Your Course Name</label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text" name="course" placeholder="Course name" required>
+              <span class="focus-border">
+                <i></i>
+              </span>
+            </div>
+            <div class="mb-5">
+              <label for="instructor name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Instructed
+                by</label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="text" name="name" placeholder="Instructor name" required>
+              <span class="focus-border">
+                <i></i>
+              </span>
+            </div>
+            <div class="mb-5">
+              <label for="Enrolled date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter
+                Enter Your Enrolled Date </label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                type="date" name="date" placeholder="Date enrolled" required>
+              <span class="focus-border">
+                <i></i>
+              </span>
+            </div>
+            <div class="mb-5">
+              <div id="fourth" class="buttonBox">
+                <button
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  type="submit">Register Courses</button>
+
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <!-- result in accordion style -->
+      <div class="bg-slate-200 w-full sm:w-2/3 p-4 main-section overflow-y-auto">
+        <div id="accordion" class="" data-accordion="collapse">
+          <% todo.forEach((todo, index)=> { %>
+            <div class="border border-gray-400 rounded">
+              <h2 id="accordion-heading-<%= index %>">
+                <button type="button"
+                  class="flex justify-between items-center w-full p-2 text-left text-lime-300 bg-red-500 hover:bg-red-600 border border-b-0 border-gray-400 focus:ring-4 focus:ring-red-200"
+                  data-accordion-target="#accordion-body-<%= index %>" aria-expanded="false"
+                  aria-controls="accordion-body-<%= index %>">
+                  <div class="flex flex-col sm:flex-col sm:space-x-4 w-full">
+                    <span class="w-full sm:w-1/4">
+                      Platform: <%= todo.platform %>
+                    </span>
+                    <span class="w-full sm:w-1/4">
+                      Course Name: <%= todo.course %>
+                    </span>
+                    <span class="w-full sm:w-1/4">
+                      Trainer: <%= todo.name %>
+                    </span>
+                    <span class="w-full sm:w-1/4">
+                      Enrolled Date: <%= todo.date %>
+                    </span>
                   </div>
+                  <svg data-accordion-icon class="w-6 h-6 shrink-0 transition-transform duration-200" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </h2>
+              <div id="accordion-body-<%= index %>" class="hidden" aria-labelledby="accordion-heading-<%= index %>">
+                <div class="p-2 bg-purple-300 border border-gray-400 border-t-0">
+                  <%= todo.name %>
                 </div>
-              </form>
-              <form action="/delete/<%= todo._id %>?_method=DELETE" method="POST" style="display: inline;">
-                <button type="submit"><i class="fa fa-trash-o"
-                    style="font-size:24px;color:rgb(255, 255, 255)"></i></button>
-              </form>
-            </section>
-            <!-- collapse element [id="collapseOne" class="collapse"]-->
-            <div id="" class="" aria-labelledby="headingOne" data-parent="#accordionExample">
-              <!-- collapse element end-->
-              <div class="card-body">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Topic Name</th>
-                      <th>Sub Topic</th>
-                      <th>Completed (%)</th>
-                      <th>edit</th>
-                      <th>delete</th>
-                      <th>Add Sub Topic</th>
-                      <th>
-                        <p>
-                          <button class="btn btn-primary" type="button" data-toggle="collapse"
-                            data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1"
-                            id="collapse">
-                            Expand
-                          </button>
-                        </p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <!-- subItem loop -->
-                      <%todo.subItems.forEach((subItem, subIndex)=> { %>
-                        <td>
-                          <%=subIndex+1 %>
-                        </td>
-                        <td class="font-weight-bold">
-                          <%= subItem.text %>
-                        </td>
-
-                        <td>TBA</td>
-                        <td>TBA</td>
-                        <td>
-                          <form action="/editSubItem/<%= todo._id %>/<%= subItem._id %>?_method=GET">
-                            <button type="submit">
-                              <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li>
-                            </button>
-                          </form>
-                        </td>
-                        <td>
-                          <form action="/deleteSubItem/<%= todo._id %>/<%= subItem._id %>?_method=DELETE" method="POST">
-                            <button type="submit">
-                              <li><a href="" data-tip="delete"><i class="fa fa-trash"></i></a></li>
-                            </button>
-                          </form>
-                        </td>
-                        <td colspan="2">
-                          <form action="/addSubItem/<%= todo._id %>/addSubTopic" method="POST"
-                            style="display: inline-flex;margin-bottom: 0;">
-                            <input type="hidden" name="subItemIndex" value="<%= subIndex %>">
-                            <input type="text" class="questionnaire" name="text" required placeholder="Add Sub Topic">
-                            <button type="submit"><i class="fa-solid fa-circle-plus fa-lg"></i></button>
-                          </form>
-                        </td>
-                        <td>
-
-                        </td>
-                    <tr>
-                      <td colspan="8">
-                        <!-- collapse element [class="collapse " id="collapseExample1"]-->
-                        <div class=" " id="">
-                          <!-- collapse end -->
-                          <div class="card card-body">
-                            <table class="table ">
-                              <thead>
-                                <th>check</th>
-                                <th>#</th>
-                                <th>SubTopic Title</th>
-                                <th></th>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <!-- subtopic loop -->
-                                  <% subItem.subTopics.forEach((subTopic, subTopicIndex)=> { %>
-                                    <td>
-                                      <form
-                                        action="/updateSubTopic/<%= todo._id %>/<%= subIndex %>/<%= subTopicIndex %>?_method=PUT"
-                                        method="POST" style="display: inline;margin-bottom: 0;">
-                                        <input type="checkbox" id="checkBox" <% if (subTopic.completed) { %>checked
-                                        <% } %>
-                                          onchange="this.form.submit()">
-                                      </form>
-                                    </td>
-                                    <td class="<%= subTopic.completed ? 'completed' : '' %>">
-                                      <%= subTopicIndex+1%>
-                                    </td>
-                                    <td class="<%= subTopic.completed ? 'completed' : '' %>">
-                                      <%= subTopic.text %>
-                                    </td>
-                                    <td>
-                                      <form
-                                        action="/deleteSubTopic/<%= todo._id %>/<%= subIndex %>/<%= subTopicIndex %>?_method=DELETE"
-                                        method="POST">
-                                        <button type="submit">
-                                          <li><a href="" data-tip="delete"><i class="fa fa-trash"></i></a></li>
-                                        </button>
-                                      </form>
-                                    </td>
-                                </tr>
-                                <% }) %>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-
-                    </tr>
-                    <% }) %>
-                  </tbody>
-                </table>
               </div>
             </div>
             <% }) %>
+        </div>
+      </div>
+
+
+
+    </div>
+    <!-- ------------------------------------------------------------------------------------------------- -->
+
+
+
+    <!-- ------------------------------------------------------------------------------------------------- -->
+
+    <!-- footer -->
+
+
+    <footer class="bg-gray-800 text-slate-100 p-4">
+      <div class="mx-auto w-full max-w-screen-full p-4 py-6 lg:py-8">
+        <div class="md:flex md:justify-between">
+          <div class="mb-6 md:mb-0">
+            <a href="" class="flex items-center">
+              <img src="/images/icons8-learn-66.png" class="h-8 me-3" alt="FlowBite Logo" />
+              <span
+                class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MyLearningProgress</span>
+            </a>
+          </div>
+          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+            <div>
+              <h2 class="mb-6 text-sm font-semibold text-slate-100 uppercase  dark:text-white">
+                Resources
+              </h2>
+              <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                <li class="mb-4">
+                  <a href="https://www.material-tailwind.com/" class="hover:underline">Material
+                    Tailwind</a>
+                </li>
+                <li>
+                  <a href="https://tailwindcss.com/" class="hover:underline">Tailwind CSS</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h2 class="mb-6 text-sm font-semibold text-slate-100 uppercase dark:text-white">Follow us
+              </h2>
+              <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                <li class="mb-4">
+                  <a href="https://github.com/zaharscript/my-learning-progress-app" class="hover:underline ">Github</a>
+                </li>
+                <li>
+                  <a href="https://discord.gg/4eeurUVvTy" class="hover:underline">Discord</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h2 class="mb-6 text-sm font-semibold text-slate-100 uppercase dark:text-white">Legal</h2>
+              <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                <li class="mb-4">
+                  <a href="#" class="hover:underline">Privacy Policy</a>
+                </li>
+                <li>
+                  <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-        <!-- Collapse one end-->
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <div class="sm:flex sm:items-center sm:justify-between">
+          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://flowbite.com/"
+              class="hover:underline">TheCodeSanctuary™</a>. All Rights
+            Reserved.
+          </span>
+          <div class="flex mt-4 sm:justify-center sm:mt-0">
+            <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 8 19">
+                <path fill-rule="evenodd"
+                  d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="sr-only">Facebook page</span>
+            </a>
+            <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 21 16">
+                <path
+                  d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z" />
+              </svg>
+              <span class="sr-only">Discord community</span>
+            </a>
+            <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 20 17">
+                <path fill-rule="evenodd"
+                  d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="sr-only">Twitter page</span>
+            </a>
+            <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="sr-only">GitHub account</span>
+            </a>
+            <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M10 0a10 10 0 1 0 10 10A10.009 10.009 0 0 0 10 0Zm6.613 4.614a8.523 8.523 0 0 1 1.93 5.32 20.094 20.094 0 0 0-5.949-.274c-.059-.149-.122-.292-.184-.441a23.879 23.879 0 0 0-.566-1.239 11.41 11.41 0 0 0 4.769-3.366ZM8 1.707a8.821 8.821 0 0 1 2-.238 8.5 8.5 0 0 1 5.664 2.152 9.608 9.608 0 0 1-4.476 3.087A45.758 45.758 0 0 0 8 1.707ZM1.642 8.262a8.57 8.57 0 0 1 4.73-5.981A53.998 53.998 0 0 1 9.54 7.222a32.078 32.078 0 0 1-7.9 1.04h.002Zm2.01 7.46a8.51 8.51 0 0 1-2.2-5.707v-.262a31.64 31.64 0 0 0 8.777-1.219c.243.477.477.964.692 1.449-.114.032-.227.067-.336.1a13.569 13.569 0 0 0-6.942 5.636l.009.003ZM10 18.556a8.508 8.508 0 0 1-5.243-1.8 11.717 11.717 0 0 1 6.7-5.332.509.509 0 0 1 .055-.02 35.65 35.65 0 0 1 1.819 6.476 8.476 8.476 0 0 1-3.331.676Zm4.772-1.462A37.232 37.232 0 0 0 13.113 11a12.513 12.513 0 0 1 5.321.364 8.56 8.56 0 0 1-3.66 5.73h-.002Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="sr-only">Dribbble account</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  </div>
+    </footer>
+
   </div>
 
-  <%- include('layout/footer');%>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+      var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+      // Change the icons inside the button based on previous settings
+      if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        themeToggleLightIcon.classList.remove('hidden');
+      } else {
+        themeToggleDarkIcon.classList.remove('hidden');
+      }
+
+      var themeToggleBtn = document.getElementById('theme-toggle');
+
+      themeToggleBtn.addEventListener('click', function () {
+
+        // toggle icons inside button
+        themeToggleDarkIcon.classList.toggle('hidden');
+        themeToggleLightIcon.classList.toggle('hidden');
+
+        // if set via local storage previously
+        if (localStorage.getItem('color-theme')) {
+          if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+          }
+
+          // if NOT set via local storage previously
+        } else {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+          }
+        }
+      });
+    });
+  </script>
+  <script>
+    function deleteItem(id) {
+      fetch(`/delete/${id}?_method=DELETE`, {
+        method: 'POST'
+      })
+        .then(response => {
+          if (response.ok) {
+            window.location.reload(); // Refresh or redirect
+          }
+        })
+        .catch(error => {
+          console.error('Error deleting item:', error);
+        });
+    }
+  </script>
+</body>
+
+</html>

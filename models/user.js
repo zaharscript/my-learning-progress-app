@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const todoSchema = new mongoose.Schema({
+  platform: String,
   course: String,
   name: String,
   date: Date,
@@ -11,15 +12,12 @@ const todoSchema = new mongoose.Schema({
       subTopics: [
         {
           text: String,
-          completed: Boolean,  
-        },  
+          completed: Boolean,
+        },
       ],
-      
     },
   ],
 });
 const Todo = mongoose.model("Todo", todoSchema);
 console.log(Todo.modelName); // Outputs: Courses
 module.exports = Todo;
-
-

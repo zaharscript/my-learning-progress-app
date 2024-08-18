@@ -31,7 +31,9 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
-    console.log("Deployment pinged. Successfully connected to MongoDB!");
+    console.log(
+      "Deployment pinged. Successfully connected to MongoDB! muah muah 😘"
+    );
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
