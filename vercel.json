@@ -4,6 +4,7 @@
       {
         "src": "./index.js",
         "use": "@now/node",
+        "config": { "nodeVersion": "22.x" }
         "framework": null
       }
     ],
